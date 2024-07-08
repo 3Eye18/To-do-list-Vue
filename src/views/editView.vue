@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import useGetRow from '@/composables/useGetRow';
 import useEditRow from '@/composables/useEditRow';
@@ -59,28 +59,22 @@ export default {
             }
         });
 
-        const { isRequired, notNumber, maxLength } = useValidate()
+        const { validate, isRequired, notNumber, maxLength } = useValidate()     
+
+        watch(name, (newName) => {
+            const nameRules = [isRequired(newName), notNumber(newName), maxLength(newName, 250)]
+            name_message.value = validate(nameRules)
+        })
+
+        watch(desc, (newDesc) => {
+            const descRules = [isRequired(newDesc), maxLength(newDesc, 250)]
+            desc_message.value = validate(descRules)
+        })
 
         const onSubmit = () => {
-            const errors = [];
-
-            const nameArray = [isRequired(name.value), notNumber(name.value), maxLength(name.value, 250)]
-            errors.push(nameArray.find(item => typeof item === 'string') || nameArray[0]);
-
-            const descArray = [isRequired(desc.value), maxLength(desc.value, 250)]
-            errors.push(descArray.find(item => typeof item === 'string') || descArray[0]);
-            
-            const hasErrors = errors.some(error => error); // Check if any errors exist
-
-            if (hasErrors) {
-                // Set error messages for display
-                name_message.value = errors[0] || ""; // Assign first error or empty string
-                desc_message.value = errors[1] || "";
-                return;
+            if (!name_message.value && !desc_message.value) {
+                editRow(docId, fields);
             }
-
-            // Submit form or call addRow function with validated data
-            editRow(docId, fields);
         };
 
         return { name, desc, name_message, desc_message, onSubmit }

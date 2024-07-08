@@ -1,4 +1,8 @@
-const useValidate = () => {    
+const useValidate = () => {
+    function validate(array) {
+        return array.find(item => typeof item === 'string') || undefined
+    }
+
     function isRequired(value) {
         return value.trim() ? undefined : "Please fill this field";
     }
@@ -13,7 +17,7 @@ const useValidate = () => {
             : `This field can't have more than ${maxSize} characters`;
     }
 
-    return {  isRequired, notNumber, maxLength }
+    return { validate, isRequired, notNumber, maxLength }
 }
 
 export default useValidate
