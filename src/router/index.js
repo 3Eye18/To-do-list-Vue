@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: '/table',
+    path: '',
     name: 'Table',
     component: () => import(/* webpackChunkName: "about" */ '../views/tableView.vue')
   },

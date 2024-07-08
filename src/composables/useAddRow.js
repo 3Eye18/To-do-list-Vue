@@ -17,7 +17,7 @@ const useAddRow = (collectionName) => {
 
             await addDoc(collection(projectFirestore, collectionName), fieldData)
             alert("Added note successfully")
-            window.location.href = "./Table";
+            window.location.href = "./";
         } catch (err) {
             console.log(err)
             error.value = err.message

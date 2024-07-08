@@ -17,6 +17,7 @@ const useEditRow = (collectionName) => {
 
             await updateDoc(docRef, fieldData); // Update document with new values
             alert("Document updated successfully!");
+            window.location.href = "../";
         } catch (error) {
             console.error("Error updating document:", error);
         }
