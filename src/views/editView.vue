@@ -125,12 +125,13 @@ export default {
         const name_message = ref("")
         const desc_message = ref("")
         const route = useRoute();
+        
 
         const { docId } = route.params;
-        const data = store.state.tableData.find(data => data.id === docId)
-        console.log(data)
-        // name.value = data.name
-        // desc.value = data.desc
+        const rowID = parseInt(docId)
+        const data = store.state.tableData.find(data => data.id == rowID)
+        name.value = data.name
+        desc.value = data.desc
 
         const { validate, isRequired, notNumber, maxLength } = useValidate()     
 
@@ -144,9 +145,13 @@ export default {
             desc_message.value = validate(descRules)
         })
 
+        function callEditRow() {
+            store.commit('editRow', { rowID: rowID, dataObject: { name: name.value, desc: desc.value } })
+        }
+
         const onSubmit = () => {
             if (!name_message.value && !desc_message.value) {
-                store.commit('editRow', docId, {name: name.value, desc: desc.value})
+                callEditRow()
             }
         };
 
