@@ -10,6 +10,8 @@ module.exports = {
         blue: "#2196F3",
         blueHover: "#0b7dda",
         green: "#04AA6D",
+        headerBackground: "#1f2937",
+        pageBackground: "#111827",
       },
     },
   },

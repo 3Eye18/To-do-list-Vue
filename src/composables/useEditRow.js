@@ -6,6 +6,7 @@ const useEditRow = (collectionName) => {
     const error = ref(null)
     
     async function editRow(docId, fields) {
+        error.value = null
         try {
             const docRef = doc(projectFirestore, collectionName, docId);
             const { name, desc } = fields; // Destructure name and desc from fields
@@ -17,9 +18,9 @@ const useEditRow = (collectionName) => {
 
             await updateDoc(docRef, fieldData); // Update document with new values
             alert("Document updated successfully!");
-            window.location.href = "../";
-        } catch (error) {
-            console.error("Error updating document:", error);
+        } catch (err) {
+            console.log(err)
+            error.value = err.message
         }
     }
 

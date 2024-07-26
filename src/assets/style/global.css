@@ -65,3 +65,53 @@ body {
 .button:hover {
     opacity: 0.8;
 }
+
+.tooltip {
+	position: relative;
+	display: inline-block;
+	/* border-bottom: 1px dotted black; If you want dots under the hoverable text */
+}
+
+.tooltip .tooltiptop,
+.tooltip .tooltipbot,
+.tooltip .tooltipleft,
+.tooltip .tooltipright {
+	visibility: hidden;
+	width: 80px;
+	background-color: black;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+	position: absolute;
+  	z-index: 1;
+}
+
+.tooltip .tooltiptop {
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(calc(-50%));
+}
+
+.tooltip .tooltipbot {
+	top: 100%;
+	left: 50%;
+	transform: translateX(calc(-50%));
+}
+
+.tooltip .tooltipleft{
+	top: -5px;
+ 	right: 105%;
+}
+
+.tooltip .tooltipright{
+	top: -5px;
+	left: 105%;
+}
+
+.tooltip:hover .tooltiptop,
+.tooltip:hover .tooltipbot,
+.tooltip:hover .tooltipleft,
+.tooltip:hover .tooltipright {
+	visibility: visible;
+}
